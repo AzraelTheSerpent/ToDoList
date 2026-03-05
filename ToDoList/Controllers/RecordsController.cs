@@ -30,10 +30,10 @@ public class RecordsController : ControllerBase
     }
 
     [HttpGet]
-    public async Task<IActionResult> Get(GetRecordsRequest request, CancellationToken ct)
+    public async Task<IActionResult> Get([FromQuery] GetRecordsRequest request, CancellationToken ct)
     {
         var recordsQuery = _dbContext.Records
-            .Where(r => !string.IsNullOrWhiteSpace(request.Search) &&
+            .Where(r => string.IsNullOrWhiteSpace(request.Search) ||
                         r.Title.Contains(request.Search, StringComparison.CurrentCultureIgnoreCase));
         
         Expression<Func<Record, object>> selectorKey = request.SortItem?.ToLower() switch
