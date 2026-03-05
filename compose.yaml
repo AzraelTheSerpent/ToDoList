@@ -5,7 +5,7 @@
     environment:
       MYSQL_ROOT_PASSWORD: 123321awd
       MYSQL_DATABASE: tododb
-      MYSQL_USER: root
+      MYSQL_USER: admin
       MYSQL_PASSWORD: 123321awd
     volumes:
       - ./mysql_data:/var/lib/mysql

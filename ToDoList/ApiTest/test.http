@@ -1,6 +1,0 @@
-﻿@Address = {{Host}}:{{Port}}
-
-GET {{Address}}/api/Records
-Accept: application/json
-
-###
