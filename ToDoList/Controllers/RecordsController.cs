@@ -18,6 +18,8 @@ public class RecordsController : ControllerBase
     [HttpPost]
     public async Task<IActionResult> Create([FromBody] CreateRecordRequest request, CancellationToken ct)
     {
+        if (string.IsNullOrEmpty(request.Title.Trim()) || string.IsNullOrEmpty(request.Description.Trim()))
+            return BadRequest();
         var record = new Record(request.Title, request.Description, false);
         
         await _dbContext.Records.AddAsync(record, ct);
@@ -31,7 +33,7 @@ public class RecordsController : ControllerBase
     {
         var recordsQuery = _dbContext.Records
             .Where(r => string.IsNullOrWhiteSpace(request.Search) ||
-                        r.Title.Contains(request.Search, StringComparison.CurrentCultureIgnoreCase));
+                        r.Title.ToLower().Contains(request.Search.ToLower()));
         
         Expression<Func<Record, object>> selectorKey = request.SortItem?.ToLower() switch
         {
@@ -65,8 +67,8 @@ public class RecordsController : ControllerBase
         return Ok();
     }
 
-    [HttpPut("{id:guid}")]
-    public async Task<IActionResult> Put(Guid id, [FromBody] PutRecordRequest request, CancellationToken ct)
+    [HttpPatch("{id:guid}")]
+    public async Task<IActionResult> Patch(Guid id, [FromBody] PutRecordRequest request, CancellationToken ct)
     {
         var record = await _dbContext.Records.FindAsync([id, ct], cancellationToken: ct);
         
