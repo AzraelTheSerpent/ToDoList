@@ -21,9 +21,16 @@ public class RecordsController : ControllerBase
         if (string.IsNullOrEmpty(request.Title.Trim()) || string.IsNullOrEmpty(request.Description.Trim()))
             return BadRequest();
         var record = new Record(request.Title, request.Description, false);
-        
-        await _dbContext.Records.AddAsync(record, ct);
-        await _dbContext.SaveChangesAsync(ct);
+
+        try
+        {
+            await _dbContext.Records.AddAsync(record, ct);
+            await _dbContext.SaveChangesAsync(ct);
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine(ex.Message);
+        }
         
         return Ok();
     }
@@ -31,9 +38,18 @@ public class RecordsController : ControllerBase
     [HttpGet]
     public async Task<IActionResult> Get([FromQuery] GetRecordsRequest request, CancellationToken ct)
     {
-        var recordsQuery = _dbContext.Records
-            .Where(r => string.IsNullOrWhiteSpace(request.Search) ||
-                        r.Title.ToLower().Contains(request.Search.ToLower()));
+        IQueryable<Record> recordsQuery;
+        try
+        {
+            recordsQuery = _dbContext.Records
+                .Where(r => string.IsNullOrWhiteSpace(request.Search) ||
+                            r.Title.ToLower().Contains(request.Search.ToLower()));
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine(ex.Message);
+            throw;
+        }
         
         Expression<Func<Record, object>> selectorKey = request.SortItem?.ToLower() switch
         {
@@ -60,9 +76,16 @@ public class RecordsController : ControllerBase
         
         if(record is null)
             return NotFound();
-        
-        _dbContext.Records.Remove(record);
-        await _dbContext.SaveChangesAsync(ct);
+
+        try
+        {
+            _dbContext.Records.Remove(record);
+            await _dbContext.SaveChangesAsync(ct);
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine(ex.Message);
+        }
         
         return Ok();
     }
@@ -74,12 +97,19 @@ public class RecordsController : ControllerBase
         
         if(record is null)
             return NotFound();
+
+        try
+        {
+            _dbContext.Records.Remove(record);
+            await _dbContext.SaveChangesAsync(ct);
         
-        _dbContext.Records.Remove(record);
-        await _dbContext.SaveChangesAsync(ct);
-        
-        _dbContext.Records.Add(new(request.Title, request.Description, request.IsCompleted));
-        await _dbContext.SaveChangesAsync(ct);
+            _dbContext.Records.Add(new(request.Title, request.Description, request.IsCompleted));
+            await _dbContext.SaveChangesAsync(ct);
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine(ex.Message);
+        }
         
         return Ok(record);
     }

@@ -11,6 +11,11 @@
       - ./mysql_data:/var/lib/mysql
     ports:
       - "3306:3306"
+    healthcheck:
+      test: [ "CMD", "mysqladmin", "ping", "-h", "localhost" ]
+      timeout: 20s
+      retries: 10
+      interval: 10s
 
   phpmyadmin:
     image: phpmyadmin/phpmyadmin:latest
@@ -30,7 +35,8 @@
     ports:
       - "8081:8081"
     depends_on:
-      - db
+      db:
+        condition: service_healthy
     environment:
       - ConnectionStrings:Database=Server=db;Port=3306;Database=tododb;User=admin;Password=123321awd;
       - ASPNETCORE_HTTP_PORTS=8081;

@@ -16,6 +16,13 @@ public class RecordsDbContext : DbContext
     
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
-        optionsBuilder.UseMySQL(_configuration.GetConnectionString("Database"));
+        optionsBuilder.UseMySQL(
+                _configuration.GetConnectionString("Database"),
+                mysqlOptions => mysqlOptions.EnableRetryOnFailure(
+                    maxRetryCount: 10,
+                    maxRetryDelay: TimeSpan.FromSeconds(30),
+                    errorNumbersToAdd: null
+                )
+            );
     }
 }
