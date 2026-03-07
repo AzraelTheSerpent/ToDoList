@@ -38,18 +38,10 @@ public class RecordsController : ControllerBase
     [HttpGet]
     public async Task<IActionResult> Get([FromQuery] GetRecordsRequest request, CancellationToken ct)
     {
-        IQueryable<Record> recordsQuery;
-        try
-        {
-            recordsQuery = _dbContext.Records
-                .Where(r => string.IsNullOrWhiteSpace(request.Search) ||
-                            r.Title.ToLower().Contains(request.Search.ToLower()));
-        }
-        catch (Exception ex)
-        {
-            Console.WriteLine(ex.Message);
-            throw;
-        }
+        var recordsQuery = _dbContext.Records
+            .Where(r => string.IsNullOrWhiteSpace(request.Search) || 
+                        r.Title.ToLower().Contains(request.Search.ToLower()));
+        
         
         Expression<Func<Record, object>> selectorKey = request.SortItem?.ToLower() switch
         {
@@ -62,17 +54,33 @@ public class RecordsController : ControllerBase
             ? recordsQuery.OrderByDescending(selectorKey)
             : recordsQuery.OrderBy(selectorKey);
 
-        var records = await recordsQuery
-            .Select(r => new RecordDto(r.Id, r.Title, r.Description, r.CreatedOn, r.IsCompleted))
-            .ToListAsync(ct);
+        List<RecordDto>? records = null;
+        try
+        {
+            records = await recordsQuery
+                .Select(r => new RecordDto(r.Id, r.Title, r.Description, r.CreatedOn, r.IsCompleted))
+                .ToListAsync(ct);
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine(ex.Message);
+        }
         
-        return Ok(new GetRecordsResponse(records));
+        return Ok(new GetRecordsResponse(records ?? []));
     }
 
     [HttpDelete("{id:guid}")]
     public async Task<IActionResult> Delete(Guid id, CancellationToken ct)
     {
-        var record = await _dbContext.Records.FindAsync([id, ct], cancellationToken: ct);
+        Record? record = null;
+        try
+        {
+            record = await _dbContext.Records.FindAsync([id, ct], cancellationToken: ct);
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine(ex.Message);
+        }
         
         if(record is null)
             return NotFound();
@@ -93,7 +101,15 @@ public class RecordsController : ControllerBase
     [HttpPatch("{id:guid}")]
     public async Task<IActionResult> Patch(Guid id, [FromBody] PutRecordRequest request, CancellationToken ct)
     {
-        var record = await _dbContext.Records.FindAsync([id, ct], cancellationToken: ct);
+        Record? record = null;
+        try
+        {
+            record = await _dbContext.Records.FindAsync([id, ct], cancellationToken: ct);
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine(ex.Message);
+        }
         
         if(record is null)
             return NotFound();
