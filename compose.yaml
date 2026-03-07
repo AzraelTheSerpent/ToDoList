@@ -22,3 +22,15 @@
       MYSQL_ROOT_PASSWORD: 123321awd
     ports:
       - "8080:80"
+  
+  aspnetapp:
+    build:
+      context: .
+      dockerfile: ToDoList/Dockerfile
+    ports:
+      - "8081:8081"
+    depends_on:
+      - db
+    environment:
+      - ConnectionStrings:Database=Server=db;Port=3306;Database=tododb;User=admin;Password=123321awd;
+      - ASPNETCORE_HTTP_PORTS=8081;
