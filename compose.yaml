@@ -8,7 +8,7 @@
       MYSQL_USER: admin
       MYSQL_PASSWORD: 123321awd
     volumes:
-      - ./mysql_data:/var/lib/mysql
+      - mysql_data:/var/lib/mysql
     ports:
       - "3306:3306"
     healthcheck:
@@ -21,7 +21,8 @@
     image: phpmyadmin/phpmyadmin:latest
     restart: always
     depends_on:
-      - db
+      db:
+        condition: service_healthy
     environment:
       PMA_HOST: db
       MYSQL_ROOT_PASSWORD: 123321awd
@@ -38,5 +39,8 @@
       db:
         condition: service_healthy
     environment:
-      - ConnectionStrings:Database=Server=db;Port=3306;Database=tododb;User=admin;Password=123321awd;
-      - ASPNETCORE_HTTP_PORTS=8081;
+      - ConnectionStrings__Database=Server=db;Port=3306;Database=tododb;User=admin;Password=123321awd;
+      - ASPNETCORE_HTTP_PORTS=8081
+
+volumes:
+  mysql_data:
