@@ -1,0 +1,17 @@
+.p-8 {
+    padding: 2rem;
+}
+
+.text-xl {
+    font-size: 1.25rem;
+    line-height: calc(1.75 / 1.25);
+}
+
+.font-bold {
+    --tw-font-weight: var(--font-weight-bold) /* 700 */;
+    font-weight: var(--font-weight-bold) /* 700 */;
+}
+@property --tw-font-weight {
+    syntax: "*";
+    inherits: false;
+}
