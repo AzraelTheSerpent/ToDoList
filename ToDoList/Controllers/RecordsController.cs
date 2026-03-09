@@ -31,8 +31,8 @@ public class RecordsController : ControllerBase
         {
             Console.WriteLine(ex.Message);
         }
-        
-        return Ok();
+
+        return Created();
     }
 
     [HttpGet]
