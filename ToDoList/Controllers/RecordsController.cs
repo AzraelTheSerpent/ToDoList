@@ -7,7 +7,7 @@ using ToDoList.Models;
 
 namespace ToDoList.Controllers;
 
-[ApiController()]
+[ApiController]
 [Route("api/[controller]")]
 public class RecordsController : ControllerBase
 {
@@ -98,8 +98,8 @@ public class RecordsController : ControllerBase
         return Ok();
     }
 
-    [HttpPatch("{id:guid}")]
-    public async Task<IActionResult> Patch(Guid id, [FromBody] PutRecordRequest request, CancellationToken ct)
+    [HttpPut("{id:guid}")]
+    public async Task<IActionResult> Put(Guid id, [FromBody] PutRecordRequest request, CancellationToken ct)
     {
         Record? record = null;
         try
@@ -116,11 +116,14 @@ public class RecordsController : ControllerBase
 
         try
         {
-            _dbContext.Records.Remove(record);
+            record.Update(request.Title, request.Description, request.IsCompleted);
+            _dbContext.Records.Update(record);
             await _dbContext.SaveChangesAsync(ct);
-        
-            _dbContext.Records.Add(new(request.Title, request.Description, request.IsCompleted));
-            await _dbContext.SaveChangesAsync(ct);
+        }
+        catch (ArgumentException ex)
+        {
+            Console.WriteLine(ex.Message);
+            return BadRequest();
         }
         catch (Exception ex)
         {
