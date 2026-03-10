@@ -4,10 +4,53 @@
     gap: 16px;
     margin: 20px;
     padding: 15px;
-    border-radius: 10px;
-    border: 0;
+    border-radius: 15px;
+    border: none;
     background-color: #1C1C1C;
     width: calc(100vw/3);
     max-width: 400px;
     min-width: 230px;
+    box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.3);
+}
+
+.todo-add-form__input-title {
+    font-size: 16px;
+    font-style: normal;
+    width: 100%;
+    padding: 8px;
+    box-sizing: border-box;
+    border: none;
+    border-radius: 10px;
+}
+
+.todo-add-form__input-description {
+    min-height: 200px;
+    width: 100%;
+    font-size: 16px;
+    box-sizing: border-box;
+    border: none;
+    border-radius: 10px;
+    resize: vertical;
+    padding: 8px;
+    font-style: normal;
+}
+
+.todo-add-form__button {
+    padding: 10px 16px;
+    cursor: pointer;
+    align-self: center;
+    width: 80%;
+    background-color: teal;
+    border-radius: 10px;
+    border: none;
+    font-weight: bold;
+    font-size: 22px;
+}
+
+.todo-add-form__button:hover { background-color: lightseagreen; }
+.todo-add-form__button:active { background-color: darkseagreen; }
+.todo-add-form__focusable:focus{
+    outline-color: #00b8d4;
+    outline-width: medium;
+    outline-offset: 3px;
 }

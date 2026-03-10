@@ -3,20 +3,32 @@
 const AddToDoForm = () => {
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
+  const [error, setError] = useState(false);
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-
-    fetch('http://localhost:8081/api/Records/', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({title, description}),
-    }).then(r => {console.log(r)}); 
+  const handleSubmit = async (event) => {
+    event.preventDefault();
     
-    setTitle('');
-    setDescription('');
+    try {
+      const response = await fetch('http://localhost:8081/api/Records/', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({title, description}),
+      });
+      
+      if (!response.ok) {
+        throw new Error(`Ошибка HTTP: ${response.status}`);
+      }
+      setError(false);
+      console.log('Success:', response);
+      setTitle('');
+      setDescription('');
+      
+    } catch (err) {
+      setError(true);
+      console.error(err);
+    }
   };
 
   return (
@@ -24,59 +36,28 @@ const AddToDoForm = () => {
       <form
         onSubmit={handleSubmit}
         className="todo-add-form"
+        style={{ border: error ? '2px dashed #dc3545' : 'none' }}
       >
-        <div>
-          <input
-            type="text"
-            id="title"
-            value={title}
-            onChange={(e) => setTitle(e.target.value)}
-            required
-            placeholder="Название"
-            style={{ 
-              fontSize: '16px',
-              fontStyle: 'normal',
-              width: '100%', 
-              padding: '8px', 
-              boxSizing: 'border-box', 
-              border: '0',
-              borderRadius: '10px',
-          }}/>
-        </div>
-  
-        <div>
-          <textarea
-            id="description"
-            value={description}
-            onChange={(e) => setDescription(e.target.value)}
-            required
-            placeholder="Описание"
-            style={{
-              minHeight: '200px',
-              width: '100%',
-              fontSize: '16px',
-              fontStyle: 'normal',
-              padding: '8px',
-              boxSizing: 'border-box',
-              border: '0',
-              borderRadius: '10px 10px 0 10px',
-              resize: 'vertical', // позволяет менять высоту
-            }}/>
-        </div>
-  
+        <input
+          type="text"
+          id="title"
+          value={title}
+          onChange={(event) => setTitle(event.target.value)}
+          required
+          placeholder="Название"
+          className="todo-add-form__input-title todo-add-form__focusable"  
+        />
+        <textarea
+          id="description"
+          value={description}
+          onChange={(event) => setDescription(event.target.value)}
+          required
+          placeholder="Описание"
+          className="todo-add-form__input-description todo-add-form__focusable"
+        />
         <button
           type="submit"
-          style={{
-            padding: '10px 16px',
-            cursor: 'pointer',
-            alignSelf: 'center',
-            width: '80%',
-            backgroundColor: 'teal',
-            borderRadius: '10px',
-            border: '0',
-            fontWeight: 'bold',
-            fontSize: '22px',
-          }}
+          className="todo-add-form__button todo-add-form__focusable"
         >
           Добавить
         </button>
