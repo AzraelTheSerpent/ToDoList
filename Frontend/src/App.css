@@ -1,17 +1,13 @@
-.p-8 {
-    padding: 2rem;
-}
-
-.text-xl {
-    font-size: 1.25rem;
-    line-height: calc(1.75 / 1.25);
-}
-
-.font-bold {
-    --tw-font-weight: var(--font-weight-bold) /* 700 */;
-    font-weight: var(--font-weight-bold) /* 700 */;
-}
-@property --tw-font-weight {
-    syntax: "*";
-    inherits: false;
+.todo-add-form {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    margin: 20px;
+    padding: 15px;
+    border-radius: 10px;
+    border: 0;
+    background-color: #1C1C1C;
+    width: calc(100vw/3);
+    max-width: 400px;
+    min-width: 230px;
 }

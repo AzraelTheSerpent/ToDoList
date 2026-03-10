@@ -1,11 +1,30 @@
+using Microsoft.EntityFrameworkCore;
 using ToDoList.DataAccess;
 
 var builder = WebApplication.CreateBuilder(args);
 
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowAll",policy =>
+    {
+        policy.AllowAnyOrigin()
+            .AllowAnyHeader()
+            .AllowAnyMethod();
+    });
+});
+
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-builder.Services.AddScoped<RecordsDbContext>();
+builder.Services.AddDbContext<RecordsDbContext>(dbContextOptionsBuilder => 
+    dbContextOptionsBuilder.UseMySQL(
+    builder.Configuration.GetConnectionString("Database")!,
+    mysqlOptions => mysqlOptions.EnableRetryOnFailure(
+        maxRetryCount: 10,
+        maxRetryDelay: TimeSpan.FromSeconds(30),
+        errorNumbersToAdd: null
+    ))
+);
 
 var app = builder.Build();
 
@@ -26,7 +45,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-app.UseHttpsRedirection();
+app.UseCors("AllowAll");
 app.MapControllers();
 
 app.Run();
