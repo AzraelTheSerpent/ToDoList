@@ -1,8 +1,8 @@
-.todo-add-form {
+.todo-form {
     display: flex;
     flex-direction: column;
     gap: 16px;
-    margin: 20px;
+    margin: 20px 20px 0;
     padding: 15px;
     border-radius: 15px;
     border: none;
@@ -13,7 +13,7 @@
     box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.3);
 }
 
-.todo-add-form__input-title {
+.todo-form__select{
     font-size: 16px;
     font-style: normal;
     width: 100%;
@@ -21,9 +21,21 @@
     box-sizing: border-box;
     border: none;
     border-radius: 10px;
+    background-color: lightgray;
 }
 
-.todo-add-form__input-description {
+.todo-form__input {
+    font-size: 16px;
+    font-style: normal;
+    width: 100%;
+    padding: 8px;
+    box-sizing: border-box;
+    border: none;
+    border-radius: 10px;
+    background-color: lightgray;
+}
+
+.todo-form__textarea {
     min-height: 200px;
     width: 100%;
     font-size: 16px;
@@ -33,9 +45,10 @@
     resize: vertical;
     padding: 8px;
     font-style: normal;
+    background-color: lightgray;
 }
 
-.todo-add-form__button {
+.todo-form__button {
     padding: 10px 16px;
     cursor: pointer;
     align-self: center;
@@ -47,9 +60,9 @@
     font-size: 22px;
 }
 
-.todo-add-form__button:hover { background-color: lightseagreen; }
-.todo-add-form__button:active { background-color: darkseagreen; }
-.todo-add-form__focusable:focus{
+.todo-form__button:hover { background-color: lightseagreen; }
+.todo-form__button:active { background-color: darkseagreen; }
+.focusable:focus{
     outline-color: #00b8d4;
     outline-width: medium;
     outline-offset: 3px;

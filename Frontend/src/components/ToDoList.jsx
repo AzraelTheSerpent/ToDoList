@@ -1,6 +1,6 @@
 ﻿import ToDoItem from "./ToDoItem.jsx";
 
-const ToDoList = (todos) => {
+const ToDoList = ({todos}) => {
   
   return (
     <section style={{ 
@@ -8,17 +8,18 @@ const ToDoList = (todos) => {
       background: 'transparent',
       border: 'none',
       marginTop: '20px',
-      width: 'auto'
+      marginLeft: 'auto',
+      width: 'auto',
+      marginRight: '20px',
     }}>
       <ul style={{
         listStyle: 'none',
         display: 'flex',
-        flexDirection: 'row',
+        flexDirection: 'column',
         flexWrap: 'wrap',
         gap: '50px',
         margin: 0,
         padding: 0,
-        border: '1px solid #ccc',
       }}>
         {todos.map((todo) => (
           <li key={todo.id}>

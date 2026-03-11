@@ -11,6 +11,8 @@
       - mysql_data:/var/lib/mysql
     ports:
       - "3306:3306"
+    networks:
+      - net
     healthcheck:
       test: [ "CMD", "mysqladmin", "ping", "-h", "localhost" ]
       timeout: 20s
@@ -23,24 +25,50 @@
     depends_on:
       db:
         condition: service_healthy
+    networks:
+      - net
     environment:
       PMA_HOST: db
       MYSQL_ROOT_PASSWORD: 123321awd
     ports:
       - "8080:80"
+        
+  nginx:
+    image: nginx:stable-alpine
+    ports:
+      - "80:80"
+    volumes:
+      - './nginx.conf:/etc/nginx/nginx.conf'
+    networks:
+      - net
+    depends_on:
+      - frontend
+      - backend
   
-  aspnetapp:
+  backend:
     build:
       context: .
       dockerfile: ToDoList/Dockerfile
     ports:
       - "8081:8081"
+    networks:
+      - net
     depends_on:
       db:
         condition: service_healthy
     environment:
       - ConnectionStrings__Database=Server=db;Port=3306;Database=tododb;User=admin;Password=123321awd;
-      - ASPNETCORE_HTTP_PORTS=8081
+      - ASPNETCORE_HTTP_PORTS=8081;
+        
+  frontend:
+    build:
+      context: ./Frontend
+    networks:
+      - net
 
 volumes:
   mysql_data:
+    
+networks:
+  net:
+  
