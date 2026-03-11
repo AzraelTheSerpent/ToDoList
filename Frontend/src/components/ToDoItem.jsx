@@ -1,11 +1,13 @@
 ﻿import Separator from "./Separator.jsx";
+import {getTodos} from "../services/todos.js";
 
 const ToDoItem = ({
     id, 
     title, 
     description, 
     createdOn, 
-    isCompleted 
+    isCompleted,
+    setTodos
   }) => {
 
   const formattedDate = new Date(createdOn + 'Z').toLocaleString('ru-RU', {
@@ -15,7 +17,28 @@ const ToDoItem = ({
     hour: '2-digit',
     minute: '2-digit',
   });
-  
+
+  const deleteTodos = async () => {
+    try {
+      console.log(id)
+      const response = await fetch(`http://localhost:8081/api/Records/${id}`, {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      })
+
+      if (!response.ok) {
+        throw new Error()
+      }
+      
+      setTodos(await getTodos());
+    } catch (error) {
+      console.error(error)
+    }
+    
+  }
+
   return (
     <div style={{ 
       display: 'flex',
@@ -77,16 +100,16 @@ const ToDoItem = ({
         display: 'flex',
         flexDirection: 'row',
         justifyContent: 'space-between',
+        gap: '30px',
         alignItems: 'center'
       }}>
         <button className="todo-form__button focusable" 
                 style={{
                   width: '30%',
         }}>Изменить</button>
-        <button className="todo-form__button focusable" 
+        <button type="button" onClick={deleteTodos} className="todo-form__delete-button focusable" 
                 style={{
                   width: '30%',
-                  backgroundColor: 'orangered',
         }}>Удалить</button>
       </div>
     </div>

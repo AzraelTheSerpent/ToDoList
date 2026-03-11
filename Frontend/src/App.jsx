@@ -18,7 +18,7 @@ function App() {
       flexDirection: "row"
     }}>
       <ToDoForm setTodos={setTodos} />
-      <ToDoList todos={todos}/>
+      <ToDoList todos={todos} setTodos={setTodos} />
     </div>
   )
 }

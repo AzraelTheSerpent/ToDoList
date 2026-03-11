@@ -53,6 +53,7 @@
     cursor: pointer;
     align-self: center;
     width: 80%;
+    min-width: 150px;
     background-color: teal;
     border-radius: 10px;
     border: none;
@@ -67,3 +68,19 @@
     outline-width: medium;
     outline-offset: 3px;
 }
+
+.todo-form__delete-button {
+    padding: 10px 16px;
+    cursor: pointer;
+    align-self: center;
+    width: 80%;
+    min-width: 150px;
+    background-color: orangered;
+    border-radius: 10px;
+    border: none;
+    font-weight: bold;
+    font-size: 22px;
+}
+
+.todo-form__delete-button:hover { background-color: lightcoral; }
+.todo-form__delete-button:active { background-color: crimson; }

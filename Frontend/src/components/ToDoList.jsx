@@ -1,6 +1,6 @@
 ﻿import ToDoItem from "./ToDoItem.jsx";
 
-const ToDoList = ({todos}) => {
+const ToDoList = ({todos, setTodos}) => {
   
   return (
     <section style={{ 
@@ -29,6 +29,7 @@ const ToDoList = ({todos}) => {
               description={todo.description}
               createdOn={todo.createdOn}
               isCompleted={todo.isCompleted}
+              setTodos={setTodos}
             />
           </li>
         ))}
