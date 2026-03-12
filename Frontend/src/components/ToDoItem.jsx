@@ -34,13 +34,13 @@ const ToDoItem = ({
       })
       
       if (!response.ok) {
+        setError(true);
         throw new Error("Failed to edit record");
       }
       setError(false);
       setTodos(await getTodos());
       setEditTodoMode(false)
     } catch (error) {
-      setError(true);
       console.error(error);
     }
   }
