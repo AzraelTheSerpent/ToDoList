@@ -1,5 +1,8 @@
 using Microsoft.EntityFrameworkCore;
 using ToDoList.DataAccess;
+using ToDoList.Interfaces;
+using ToDoList.Repositories;
+using ToDoList.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -25,6 +28,9 @@ builder.Services.AddDbContext<RecordsDbContext>(dbContextOptionsBuilder =>
         errorNumbersToAdd: null
     ))
 );
+
+builder.Services.AddScoped<IRecordService, RecordService>();
+builder.Services.AddScoped<IRecordRepository, RecordRepository>();
 
 var app = builder.Build();
 

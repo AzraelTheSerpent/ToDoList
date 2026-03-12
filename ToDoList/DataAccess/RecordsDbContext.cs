@@ -1,11 +1,11 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using ToDoList.Models;
+using ToDoList.Entities;
 
 namespace ToDoList.DataAccess;
 
 public class RecordsDbContext : DbContext
 {
-    public DbSet<Record> Records => Set<Record>();
+    public DbSet<Record> Records { get; set; }
     
     public RecordsDbContext(DbContextOptions<RecordsDbContext> options) : base(options) { }
 }

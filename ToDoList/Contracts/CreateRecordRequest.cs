@@ -1,3 +1,9 @@
-﻿namespace ToDoList.Contracts;
+﻿using System.ComponentModel.DataAnnotations;
+using System.Diagnostics.CodeAnalysis;
 
-public record CreateRecordRequest(string Title, string Description);
+namespace ToDoList.Contracts;
+
+public record CreateRecordRequest(
+    [Required, MinLength(1)] string Title, 
+    [Required, MinLength(1)] string Description
+    );
