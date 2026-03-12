@@ -10,9 +10,9 @@ public class Record
     
     public Record(string title, string description)
     {
-        if (string.IsNullOrEmpty(title.Trim()))
+        if (string.IsNullOrWhiteSpace(title))
             throw new ArgumentException("Title cannot be null or empty");
-        if (string.IsNullOrEmpty(description.Trim()))
+        if (string.IsNullOrWhiteSpace(description))
             throw new ArgumentException("Description cannot be null or empty");
         Title = title;
         Description = description;
@@ -22,9 +22,9 @@ public class Record
     
     public void Update(string title, string description, bool isCompleted)
     {
-        if (string.IsNullOrEmpty(title.Trim()))
+        if (string.IsNullOrWhiteSpace(title))
             throw new ArgumentException("Title cannot be null or empty");
-        if (string.IsNullOrEmpty(description.Trim()))
+        if (string.IsNullOrWhiteSpace(description))
             throw new ArgumentException("Description cannot be null or empty");
         (Title, Description, IsCompleted) = (title, description, isCompleted);
     }
