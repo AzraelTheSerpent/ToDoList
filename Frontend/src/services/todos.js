@@ -20,9 +20,9 @@
 
     const data = await response.json();
 
-    if (data.records && Array.isArray(data.records)) {
-      console.log(data.records);
-      return data.records;
+    if (data && Array.isArray(data)) {
+      console.log(data);
+      return data;
     } else {
       console.warn('Сервер вернул данные без поля records или records не массив:', data);
       return [];

@@ -1,3 +1,9 @@
-﻿namespace ToDoList.Contracts;
+﻿using System.ComponentModel.DataAnnotations;
 
-public record PutRecordRequest(string Title, string Description, bool IsCompleted);
+namespace ToDoList.Contracts;
+
+public record PutRecordRequest(
+    [Required, MinLength(1)] string Title, 
+    [Required, MinLength(1)] string Description, 
+    [Required] bool IsCompleted
+    );

@@ -15,6 +15,7 @@ const ToDoItem = ({
   const [newDescription, setNewDescription] = useState(description);
   const [newIsCompleted, setNewIsCompleted] = useState(isCompleted);
   const [editTodoMode, setEditTodoMode] = useState(false);
+  const [error, setError] = useState(false);
   const formattedDate = new Date(createdOn + 'Z').toLocaleString('ru-RU', {
     day: '2-digit',
     month: '2-digit',
@@ -35,10 +36,11 @@ const ToDoItem = ({
       if (!response.ok) {
         throw new Error("Failed to edit record");
       }
-      
+      setError(false);
       setTodos(await getTodos());
       setEditTodoMode(false)
     } catch (error) {
+      setError(true);
       console.error(error);
     }
   }
@@ -55,9 +57,10 @@ const ToDoItem = ({
       if (!response.ok) {
         throw new Error("Failed to delete record");
       }
-      
+      setError(false);
       setTodos(await getTodos());
     } catch (error) {
+      setError(true);
       console.error(error)
     }
     
@@ -70,12 +73,12 @@ const ToDoItem = ({
       padding: '20px',
       backgroundColor: '#1C1C1C',
       boxShadow: '10px 10px 20px rgba(0, 0, 0, 0.3)',
-      border: 'none',
       borderRadius: '10px',
       minWidth: '300px',
       width: 'auto',
       gap: '10px',
       maxWidth: '50vw',
+      border: error ? '2px dashed #dc3545' : 'none'
     }}>
       {editTodoMode ? <input
         type="text"
