@@ -35,7 +35,7 @@ public class RecordService : IRecordService
 
     public async Task CreateAsync(CreateRecordRequest request, CancellationToken ct)
     {
-        await _repo.CreateAsync(new(request.Title, request.Description), ct);
+        await _repo.AddAsync(new(request.Title, request.Description), ct);
         await _repo.SaveChangesAsync(ct);
     }
 }

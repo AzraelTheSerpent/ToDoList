@@ -39,7 +39,7 @@ public class RecordRepository : IRecordRepository
     public async Task<Record?> GetAsync(Guid id, CancellationToken ct) =>
         await _context.Records.FindAsync([id, ct], ct);
     
-    public async Task CreateAsync(Record record, CancellationToken ct) => 
+    public async Task AddAsync(Record record, CancellationToken ct) => 
         await _context.Records.AddAsync(record, ct);
 
     public void Delete(Record record) => 
