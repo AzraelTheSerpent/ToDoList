@@ -1,3 +1,44 @@
+.todo-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+.todo-form-container {
+    display: flex;
+    flex-direction: column;
+    position: sticky;
+    height: 100vh;
+    top: 0;
+    gap: 10px;
+}
+.todo-list-container{
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    gap: 50px;
+    margin: 0;
+    padding: 0;
+}
+
+@media (max-width: 740px) {
+    .todo-container{
+        flex-direction: column;
+        align-items: center;
+        align-content: center;
+    }
+    .todo-form-container {
+        position: static;
+        height: auto;
+        width: 100%;
+        align-items: center;
+    }
+    .todo-list-container{
+        align-items: center;
+        align-content: center;
+    }
+}
+
 .todo-form {
     display: flex;
     flex-direction: column;

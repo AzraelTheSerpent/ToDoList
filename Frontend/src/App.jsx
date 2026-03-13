@@ -13,10 +13,7 @@ function App() {
   }, []);
   
   return (
-    <div style={{
-      display: "flex",
-      flexDirection: "row"
-    }}>
+    <div className="todo-container">
       <ToDoForm setTodos={setTodos} />
       <ToDoList todos={todos} setTodos={setTodos} />
     </div>

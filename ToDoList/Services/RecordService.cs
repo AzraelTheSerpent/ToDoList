@@ -1,5 +1,6 @@
 ﻿using ToDoList.DTOs.Requests;
 using ToDoList.DTOs.Responses;
+using ToDoList.Entities;
 using ToDoList.Interfaces;
 using ToDoList.Models.Filters;
 
@@ -36,7 +37,7 @@ public class RecordService : IRecordService
 
     public async Task CreateAsync(CreateRecordDto dto, CancellationToken ct)
     {
-        await _repo.AddAsync(new(dto.Title, dto.Description), ct);
+        await _repo.AddAsync(new Record(dto.Title, dto.Description), ct);
         await _repo.SaveChangesAsync(ct);
     }
 }

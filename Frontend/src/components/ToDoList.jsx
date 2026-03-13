@@ -4,23 +4,14 @@ const ToDoList = ({todos, setTodos}) => {
   
   return (
     <section style={{ 
-      padding: 0,
+      padding: '8px',
       background: 'transparent',
       border: 'none',
-      marginTop: '20px',
-      marginLeft: 'auto',
+      // marginTop: '20px',
       width: 'auto',
-      marginRight: '20px',
+      // marginRight: '20px',
     }}>
-      <ul style={{
-        listStyle: 'none',
-        display: 'flex',
-        flexDirection: 'column',
-        flexWrap: 'wrap',
-        gap: '50px',
-        margin: 0,
-        padding: 0,
-      }}>
+      <ul className="todo-list-container">
         {todos.map((todo) => (
           <li key={todo.id}>
             <ToDoItem

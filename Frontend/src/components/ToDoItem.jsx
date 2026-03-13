@@ -74,7 +74,7 @@ const ToDoItem = ({
       backgroundColor: '#1C1C1C',
       boxShadow: '10px 10px 20px rgba(0, 0, 0, 0.3)',
       borderRadius: '10px',
-      minWidth: '300px',
+      minWidth: '350px',
       width: 'auto',
       gap: '10px',
       maxWidth: '50vw',
@@ -89,7 +89,7 @@ const ToDoItem = ({
         placeholder="Название"
         className="todo-form__input focusable"
       /> : <h3 
-        style={{fontSize: '35px', color: 'lightgray', margin: 0}}
+        style={{fontSize: '35px', color: 'lightgray', margin: 0, overflowWarp: 'break-word'}}
       >{title}</h3>}
       <Separator />
       {editTodoMode ? <textarea

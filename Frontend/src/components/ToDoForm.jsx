@@ -3,11 +3,7 @@ import SearchToDoForm from "./SearchToDoForm.jsx";
 
 const ToDoForm = ({setTodos}) => {
   return (
-    <section style={{ 
-      display: "flex",
-      flexDirection: "column",
-      gap: '10px',
-    }}>
+    <section className="todo-form-container">
       <AddToDoForm setTodos={setTodos} />
       <SearchToDoForm setTodos={setTodos} />
     </section>
