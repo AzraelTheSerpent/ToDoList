@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using ToDoList.Contracts;
+using ToDoList.DTOs.Requests;
 using ToDoList.Interfaces;
 
 namespace ToDoList.Controllers;
@@ -13,11 +13,11 @@ public class RecordsController : ControllerBase
     public RecordsController(IRecordService service) => _service = service;
 
     [HttpPost]
-    public async Task<IActionResult> Create([FromBody] CreateRecordRequest request, CancellationToken ct)
+    public async Task<IActionResult> Create([FromBody] CreateRecordDto dto, CancellationToken ct)
     {
         try
         {
-            await _service.CreateAsync(request, ct);
+            await _service.CreateAsync(dto, ct);
             return Created();
         }
         catch (Exception ex)
@@ -28,11 +28,11 @@ public class RecordsController : ControllerBase
     }
 
     [HttpGet]
-    public async Task<IActionResult> Get([FromQuery] GetRecordsRequest request, CancellationToken ct)
+    public async Task<IActionResult> Get([FromQuery] GetRecordsDto dto, CancellationToken ct)
     {
         try
         {
-            var recordDtos = await _service.GetAsync(request, ct);
+            var recordDtos = await _service.GetAsync(dto, ct);
             return Ok(recordDtos);
         }
         catch (Exception ex)
@@ -63,11 +63,11 @@ public class RecordsController : ControllerBase
     }
 
     [HttpPut("{id:guid}")]
-    public async Task<IActionResult> Put(Guid id, [FromBody] PutRecordRequest request, CancellationToken ct)
+    public async Task<IActionResult> Put(Guid id, [FromBody] PutRecordDto dto, CancellationToken ct)
     {
         try
         {
-            await _service.UpdateAsync(id, request, ct);
+            await _service.UpdateAsync(id, dto, ct);
             return Ok();
         }
         catch (KeyNotFoundException ex)

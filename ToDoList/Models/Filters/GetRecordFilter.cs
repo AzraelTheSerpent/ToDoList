@@ -1,6 +1,6 @@
-﻿namespace ToDoList.Contracts;
+﻿namespace ToDoList.Models.Filters;
 
-public record GetRecordsRequest(
+public record GetRecordsFilter(
     string? Search, 
     string? SortItem, 
     string? SortOrder

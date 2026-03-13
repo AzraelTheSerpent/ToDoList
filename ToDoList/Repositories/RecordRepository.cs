@@ -1,9 +1,10 @@
 ﻿using System.Linq.Expressions;
 using Microsoft.EntityFrameworkCore;
-using ToDoList.Contracts;
 using ToDoList.DataAccess;
+using ToDoList.DTOs.Responses;
 using ToDoList.Interfaces;
 using ToDoList.Entities;
+using ToDoList.Models.Filters;
 
 namespace ToDoList.Repositories;
 
@@ -13,21 +14,21 @@ public class RecordRepository : IRecordRepository
 
     public RecordRepository(RecordsDbContext context) => _context = context;
 
-    public async Task<List<RecordDto>> GetAsync(GetRecordsRequest request, CancellationToken ct)
+    public async Task<List<RecordDto>> GetAsync(GetRecordsFilter filter, CancellationToken ct)
     {
         var recordsQuery = _context.Records
-            .Where(r => string.IsNullOrWhiteSpace(request.Search) || 
-                        r.Title.ToLower().Contains(request.Search.ToLower()));
+            .Where(r => string.IsNullOrWhiteSpace(filter.Search) || 
+                        r.Title.ToLower().Contains(filter.Search.ToLower()));
         
         
-        Expression<Func<Record, object>> selectorKey = request.SortItem?.ToLower() switch
+        Expression<Func<Record, object>> selectorKey = filter.SortItem?.ToLower() switch
         {
             "date" => r => r.CreatedOn,
             "title" => r => r.Title,
             _ => r => r.Id
         };
         
-        recordsQuery = request.SortOrder == "desc"
+        recordsQuery = filter.SortOrder == "desc"
             ? recordsQuery.OrderByDescending(selectorKey)
             : recordsQuery.OrderBy(selectorKey);
         

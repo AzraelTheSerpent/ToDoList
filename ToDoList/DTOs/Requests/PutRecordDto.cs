@@ -1,8 +1,8 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace ToDoList.Contracts;
+namespace ToDoList.DTOs.Requests;
 
-public record PutRecordRequest(
+public record PutRecordDto(
     [Required, MinLength(1)] string Title, 
     [Required, MinLength(1)] string Description, 
     [Required] bool IsCompleted
