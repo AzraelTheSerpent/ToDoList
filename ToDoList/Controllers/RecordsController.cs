@@ -48,7 +48,7 @@ public class RecordsController : ControllerBase
         try
         {
             await _service.DeleteAsync(id, ct);
-            return Ok();
+            return NoContent();
         }
         catch (KeyNotFoundException ex)
         {
@@ -68,7 +68,7 @@ public class RecordsController : ControllerBase
         try
         {
             await _service.UpdateAsync(id, dto, ct);
-            return Ok();
+            return NoContent();
         }
         catch (KeyNotFoundException ex)
         {
