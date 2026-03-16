@@ -5,7 +5,7 @@ using ToDoList.Interfaces;
 namespace ToDoList.Controllers;
 
 [ApiController]
-[Route("api/[controller]")]
+[Route("[controller]")]
 public class RecordsController : ControllerBase
 {
     private readonly IRecordService _service;

@@ -10,7 +10,7 @@ const AddToDoForm = ({setTodos}) => {
     event.preventDefault();
     
     try {
-      const response = await fetch('http://localhost:8081/api/Records/', {
+      const response = await fetch('http://localhost/api/Records/', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -22,7 +22,6 @@ const AddToDoForm = ({setTodos}) => {
         throw new Error(`Ошибка HTTP: ${response.status}`);
       }
       setError(false);
-      console.log('Success:', response);
       setTitle('');
       setDescription('');
       setTodos(await getTodos());

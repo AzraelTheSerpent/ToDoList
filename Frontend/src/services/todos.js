@@ -5,7 +5,7 @@
 }) => {
   try {
     const filtersQuery = new URLSearchParams(filters);
-    const response = await fetch(`http://localhost:8081/api/Records?${filtersQuery}`,{
+    const response = await fetch(`http://localhost/api/Records?${filtersQuery}`,{
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
@@ -21,7 +21,6 @@
     const data = await response.json();
 
     if (data && Array.isArray(data)) {
-      console.log(data);
       return data;
     } else {
       console.warn('Сервер вернул данные без поля records или records не массив:', data);

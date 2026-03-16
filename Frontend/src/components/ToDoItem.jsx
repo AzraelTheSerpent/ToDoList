@@ -25,7 +25,7 @@ const ToDoItem = ({
   });
   const editTodo = async () => {
     try {
-      const response = await fetch(`http://localhost:8081/api/Records/${id}`, {
+      const response = await fetch(`http://localhost/api/Records/${id}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json'
@@ -47,7 +47,7 @@ const ToDoItem = ({
 
   const deleteTodo = async () => {
     try {
-      const response = await fetch(`http://localhost:8081/api/Records/${id}`, {
+      const response = await fetch(`http://localhost/api/Records/${id}`, {
         method: 'DELETE',
         headers: {
           'Content-Type': 'application/json'
