@@ -9,8 +9,6 @@
       MYSQL_PASSWORD: 123321awd
     volumes:
       - mysql_data:/var/lib/mysql
-    ports:
-      - "3306:3306"
     networks:
       - net
     healthcheck:
@@ -49,8 +47,6 @@
     build:
       context: .
       dockerfile: ToDoList/Dockerfile
-    ports:
-      - "8081:8081"
     networks:
       - net
     depends_on:
