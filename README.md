@@ -33,7 +33,7 @@ To Do List - небольшое web-приложение для хранения
 
 ## Preview
 <details><summary><b style="font-size: 18px">Screenshoots</b></summary>
-![Main page](/img/start.png)
+![Main page](https://github.com/AzraelTheSerpent/ToDoList/tree/master/img/start.png)
 </details>
 
 
