@@ -18,7 +18,7 @@ To Do List - небольшое web-приложение для хранения
 | `Id` | `Guid` | PK |
 | `Title` | `string` | Название |
 | `Description` | `string` | Описание |
-| `CreatesOn` | `DateTime` |  Дата и время создания |
+| `CreatedOn` | `DateTime` |  Дата и время создания |
 | `IsCompleted` | `bool` | Статус выполнения |
 
 ## API Endpoints
