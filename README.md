@@ -31,12 +31,6 @@ To Do List - небольшое web-приложение для хранения
 | Delete | /api/records{id} | Удалить заметку | - | - |
 | Put | /api/records{id} | Изменить заметку | PutRecordDto <ul><li>Title<li>Description<li>IsCompleted<ul/> | - |
 
-## Preview
-<details><summary><b style="font-size: 18px">Screenshoots</b></summary>
-![Main page](/img/start.png)
-</details>
-
-
 ## Deploy
 
 Для того чтобы развернуть приложение на сервере скопируйте репозиторий:
