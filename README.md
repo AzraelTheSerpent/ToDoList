@@ -47,5 +47,6 @@ To Do List - небольшое web-приложение для хранения
 Затем перейдите в корневую папку проекта и выполните команду `docker compose up --build` 
  ```bash
  $ cd ./ToDoList
- $ docker compose up --build
+ $ sudo systemctl start docker
+ $ sudo docker-compose up --build
  ```
