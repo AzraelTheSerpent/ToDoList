@@ -48,5 +48,5 @@ To Do List - небольшое web-приложение для хранения
  ```bash
  $ cd ./ToDoList
  $ sudo systemctl start docker
- $ sudo docker-compose up --build
+ $ docker-compose up --build
  ```
